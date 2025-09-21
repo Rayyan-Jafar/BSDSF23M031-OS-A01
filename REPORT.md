@@ -54,5 +54,30 @@ A **Release** on GitHub is a packaged distribution of the project, tied to a Git
 The main purposes of a release are:  
 - To clearly mark a stable point in development.  
 - To provide end-users with ready-to-use code or executables.  
-
 Attaching binaries (e.g., the `bin/client` executable) allows users to download and use the program without having to compile it from source code themselves. This is especially helpful for non-developers or users who only want to run the application directly.
+
+---
+
+### **1. Makefile Comparison (Part 2 vs Part 3)**
+
+* Part 2 compiles all source files directly and links them into the executable.
+* Part 3 creates a static library (`libmyutils.a`) from utility functions and links the main program against it.
+* Key difference: Part 3 separates reusable code into a library, improving modularity and reducing recompilation time.
+
+---
+
+### **2. Purpose of `ar` and `ranlib`**
+
+* `ar` archives object files into a static library.
+* `ranlib` generates a symbol index in the library for faster linking and compatibility.
+* Together, they create a library that can be linked into executables.
+
+---
+
+### **3. Observing Symbols in `client_static`**
+
+* Running `nm` shows that library functions like `mystrlen` are **already included** in the executable.
+* This demonstrates **static linking**, where all code from the library is copied into the final program at compile time.
+
+---
+
