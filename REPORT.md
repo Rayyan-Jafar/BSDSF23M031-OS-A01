@@ -81,3 +81,31 @@ Attaching binaries (e.g., the `bin/client` executable) allows users to download 
 
 ---
 
+4. Dynamic Library (Feature-4) Questions
+
+Q1. What is Position-Independent Code (-fPIC) and why is it fundamental for shared libraries?
+Position-Independent Code (PIC) is compiled in a way that allows the resulting machine code to execute correctly regardless of where it is loaded in memory.
+
+This is essential for shared libraries (.so) because the same library can be loaded at different addresses by multiple programs at the same time.
+
+Without -fPIC, the library would contain absolute memory addresses, which would prevent safe dynamic linking and could lead to crashes.
+
+Q2. Explain the difference in file size between your static and dynamic clients. Why does this difference exist?
+
+Static executable (client_static): All library code is copied into the executable during compilation.
+
+Dynamic executable (client_dynamic): Only references to the shared library (.so) are included; the actual library code is loaded at runtime.
+
+Effect:
+
+The dynamic executable is smaller because it doesn’t embed the library code.
+
+This reduces disk usage and memory consumption, especially when multiple programs use the same library.
+
+Q3. What is the LD_LIBRARY_PATH environment variable? Why was it necessary to set it for your program to run?
+
+LD_LIBRARY_PATH specifies directories for the dynamic loader to search for shared libraries at runtime.
+
+It was necessary to set it because libmyutils.so is not in a standard system library path. Without it, running client_dynamic would fail with a “cannot open shared object file” error.
+
+This shows that the OS dynamic loader is responsible for locating and loading shared libraries when a program starts, and users must help it find custom library locations.

@@ -1,19 +1,23 @@
 SOURCES = src/main.c src/mystrfunctions.c src/myfilefunctions.c
+
 OBJECTS = obj/mystrfunctions.o obj/myfilefunctions.o
-TARGET = bin/client-static
-LIB = lib/myutils.a
 MAIN = obj/main.o
 
-all: $(TARGET)
+DYNAMIC_LIB = lib/libmyutils.so
+DYNAMIC_EXE = bin/client_dynamic
 
-$(TARGET): $(MAIN) $(LIB)
-	gcc $(MAIN) -Llib -lmyutils -o $@
+all: $(DYNAMIC_EXE)
+
+$(DYNAMIC_EXE): $(MAIN) $(DYNAMIC_LIB)
+	gcc $(MAIN) -Llib -lmyutils -Wl,-rpath=lib -o $@
 
 obj/%.o: src/%.c
-	gcc -c $< -Iinclude -o $@
+	gcc -c $< -Iinclude -fPIC  -o $@
 
-$(LIB): $(OBJECTS)
-	ar -rcs $@ $^
+$(DYNAMIC_LIB): $(OBJECTS)
+	gcc -shared $^ -o $@
 
 clean:
-	rm -f $(OBJECTS) $(TARGET) $(LIB)
+	rm -f obj/*.o $(DYNAMIC_LIB) $(DYNAMIC_EXE)
+
+.PHONY: all clean
