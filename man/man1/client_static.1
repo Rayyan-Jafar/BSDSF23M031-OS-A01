@@ -1,0 +1,18 @@
+.TH CLIENT-STATIC 1 "September 2025" "Version 0.2.1" "User Commands"
+.SH NAME
+client-static \- client program linked with the static library
+.SH SYNOPSIS
+.B client-static
+[\fIOPTIONS\fR]
+.SH DESCRIPTION
+The
+.B client-static
+program demonstrates how to link against a statically built library
+(libmyutils.a).  
+All required object code from the library is copied into the final binary, making
+this executable completely self-contained.
+.PP
+Because of static linking, the resulting executable file size is larger, but it
+does not depend on external shared libraries at runtime.
+.SH AUTHOR
+MUHAMMAD Rayyan Jafar mrayyanjafar11@.com

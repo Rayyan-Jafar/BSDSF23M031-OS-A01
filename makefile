@@ -20,4 +20,17 @@ $(DYNAMIC_LIB): $(OBJECTS)
 clean:
 	rm -f obj/*.o $(DYNAMIC_LIB) $(DYNAMIC_EXE)
 
-.PHONY: all clean
+PREFIX = /usr/local
+BINDIR = $(PREFIX)/bin
+MANDIR = $(PREFIX)/share/man
+
+install: $(DYNAMIC_EXE) man/man1/client_dynamic.1
+	install -d $(BINDIR) $(MANDIR)/man1
+	install -m 755 $(DYNAMIC_EXE) $(BINDIR)/client_dynamic
+	install -m 644 man/man1/client_dynamic.1 $(MANDIR)/man1/client_dynamic.1
+
+uninstall:
+	rm -f $(BINDIR)/client_dynamic
+	rm -f $(MANDIR)/man1/client_dynamic.1
+
+.PHONY: all clean install uninstall
