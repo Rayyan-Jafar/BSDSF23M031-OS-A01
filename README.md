@@ -150,7 +150,7 @@ All branches and tags were pushed to GitHub, and a **release was published for e
 ## 👨‍💻 Author
 
 **Rayyan Jafar**
-📧 \[(mailto:mrayyanjafar11@@gmail.com)]
+📧 \[(mail to:mrayyanjafar11@gmail.com)]
 
 ---
 ```
